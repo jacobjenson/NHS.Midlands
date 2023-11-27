@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using NHS.Api.DAL;
-using System.Text.Json.Serialization;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +26,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecretKey")), // Replace 'YourSecretKey' with a strong secret key
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("strong-secret-la-la-la")),
             ValidateIssuer = false,
             ValidateAudience = false
         };
@@ -43,7 +43,7 @@ var context = scope.ServiceProvider.GetRequiredService<RequirementContext>();
 context.Database.EnsureCreated();
 
 // Configure the HTTP request pipeline.
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

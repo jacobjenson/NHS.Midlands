@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NHS.Api.DAL;
 using NHS.Api.Models;
 
@@ -7,6 +7,7 @@ namespace NHS.Api.Controllers
 {
     [ApiController]
     [Route("staff")]
+    [Authorize]
     public class StaffController : ControllerBase
     {
         private readonly RequirementContext _context;

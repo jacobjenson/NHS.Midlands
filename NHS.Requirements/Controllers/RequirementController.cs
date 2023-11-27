@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NHS.Api.DAL;
@@ -6,7 +7,8 @@ using NHS.Api.Models;
 namespace NHS.Api.Controllers
 {
     [ApiController]
-    [Route("")]
+    [Route("Requirement")]
+    [Authorize]
     public class RequirementController : ControllerBase
     {
         private readonly RequirementContext _context;

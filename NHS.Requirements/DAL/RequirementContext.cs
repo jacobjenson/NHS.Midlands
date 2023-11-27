@@ -9,12 +9,21 @@ namespace NHS.Api.DAL
 
         public DbSet<Staff> Staff { get; set; }
 
+        public DbSet<User> Users { get; internal set; }
+
         public RequirementContext(DbContextOptions options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasIndex(e => e.Username).IsUnique();
+
+                entity.Property(e => e.PasswordHash).IsRequired();
+            });
+
             modelBuilder.Entity<Requirement>(entity =>
             {
                 var enumValues = Enum.GetValues(typeof(Status))
