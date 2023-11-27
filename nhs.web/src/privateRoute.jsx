@@ -1,16 +1,17 @@
 /* eslint-disable react/prop-types */
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
-const PrivateRoute = ({ element: Element, ...rest }) => {
+const PrivateRoute = ({ element: Component, ...rest }) => {
     const { isAuthenticated } = useAuth();
-    const location = useLocation();
 
-    return isAuthenticated ? (
-        <Element {...rest} />
-    ) : (
-        <Navigate to="/login" replace state={{ from: location }} />
-    );
+    // If not authenticated, redirect to the login page
+    if (!isAuthenticated) {
+        return <Navigate to="/login" />;
+    }
+
+    // If authenticated, render the passed component
+    return <Component {...rest} />;
 };
 
 export default PrivateRoute;

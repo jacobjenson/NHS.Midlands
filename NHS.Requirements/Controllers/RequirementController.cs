@@ -7,7 +7,7 @@ using NHS.Api.Models;
 namespace NHS.Api.Controllers
 {
     [ApiController]
-    [Route("Requirement")]
+    [Route("requirement")]
     [Authorize]
     public class RequirementController : ControllerBase
     {

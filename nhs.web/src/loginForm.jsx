@@ -9,20 +9,15 @@ function LoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/auth/login', { username, password });
+            const response = await axios.post('http://localhost:5157', { username, password });
             localStorage.setItem('token', response.data.token);
             setErrorMessage('');
-            // Redirect to a different page or update the state as needed
         } catch (error) {
             if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
                 setErrorMessage(error.response.data);
             } else if (error.request) {
-                // The request was made but no response was received
                 setErrorMessage('No response from server');
             } else {
-                // Something happened in setting up the request that triggered an Error
                 setErrorMessage('Error: ' + error.message);
             }
         }

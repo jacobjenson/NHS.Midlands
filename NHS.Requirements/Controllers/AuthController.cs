@@ -9,7 +9,7 @@ using NHS.Api.Models;
 using NHS.Api.DAL; // Correct using directive
 
 [ApiController]
-[Route("")]
+[Route("login")]
 public class AuthController : ControllerBase
 {
     private readonly RequirementContext _context; // Replace with your DbContext
@@ -19,7 +19,7 @@ public class AuthController : ControllerBase
         _context = context;
     }
 
-    [HttpPost("login")]
+    [HttpPost]
     public async Task<ActionResult> Login([FromBody] User user)
     {
         var dbUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == user.Username);
